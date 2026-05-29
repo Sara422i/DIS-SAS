@@ -52,6 +52,11 @@
                         Tilføj destination
                     </a>
                 </li>
+                <li>
+                    <a href="{{ url_for('packlist.show_packlist', trip_id=trip[0]) }}">
+                        Se pakkeliste
+                    </a>
+                </li>
             </ul>
         </li>
     {% endfor %}

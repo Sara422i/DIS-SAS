@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pakkeliste</title>
+</head>
+<body>
+    <h1>Pakkeliste for {{ trip[1] }}</h1>
+
+    <p>
+        Rejseperiode: {{ trip[2]|dkdate }} - {{ trip[3]|dkdate }}
+    </p>
+
+    <form method="POST">
+        <input type="text" name="name" placeholder="Pakke-item fx Pas" required>
+
+        <button type="submit">Tilføj item</button>
+    </form>
+    <form method="POST" action="{{ url_for('packlist.generate_suggestions', trip_id=trip[0]) }}">
+        <button type="submit">Generér pakkeforslag</button>
+    </form>
+
+    <h2>Items</h2>
+
+    <ul>
+        {% for item in items %}
+            <li>
+                <form 
+                    method="POST" 
+                    action="{{ url_for('packlist.toggle_item', trip_id=trip[0], item_id=item[0]) }}" 
+                    style="display:inline;"
+                >
+                    <input 
+                        type="checkbox" 
+                        onchange="this.form.submit()"
+                        {% if item[2] %}checked{% endif %}
+                    >
+                </form>
+
+                {{ item[1] }}
+
+                <form 
+                    method="POST" 
+                    action="{{ url_for('packlist.delete_item', trip_id=trip[0], item_id=item[0]) }}" 
+                    style="display:inline;"
+                >
+                    <button 
+                        type="submit"
+                        onclick="return confirm('Er du sikker på, at du vil slette dette item?')"
+                    >
+                        Slet
+                    </button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a href="/">Tilbage til mine rejser</a>
+</body>
+</html>

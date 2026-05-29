@@ -11,9 +11,21 @@
     </p>
 
     <form method="POST">
-        <input type="text" name="name" placeholder="Destinationens navn" required>
+        <input type="text" name="name" placeholder="By, Land" required>
 
-        <input type="text" name="destination_type" placeholder="Type fx strand/by/skiferie" required>
+        <select name="destination_type" required>
+            <option value="">Vælg destinationstype</option>
+            <option value="by">By</option>
+            <option value="strand">Strand</option>
+            <option value="ski">Ski</option>
+            <option value="cykeltur">Cykeltur</option>
+            <option value="fest">Fest</option>
+            <option value="vandring">Vandring</option>
+            <option value="camping">Camping</option>
+            <option value="arbejde">Arbejde</option>
+            <option value="familie">Familie</option>
+            <option value="andet">Andet</option>
+        </select>
 
         <input type="text" name="currency" placeholder="Valuta fx USD/EUR/DKK">
 
