@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>TravelPack - Rejser</title>
+</head>
+<body>
+    <h1>Mine Rejser</h1>
+
+    <form method="POST">
+        <input type="text" name="title" placeholder="Rejsens titel" required>
+        <input type="date" name="start_date" required>
+        <input type="date" name="end_date" required>
+        <button type="submit">Opret rejse</button>
+    </form>
+
+    <ul> 
+    {% for trip in trips %}
+        <li>
+            <strong>{{ trip[1] }}</strong> ({{ trip[2]|dkdate }} - {{ trip[3]|dkdate }})
+
+            <form method="POST" action="/trips/{{ trip[0] }}/delete" style="display:inline;">
+                <button 
+                    type="submit" 
+                    onclick="return confirm('Er du sikker på, at du vil slette denne rejse?')"
+                >
+                    Slet rejse
+                </button>
+            </form>
+
+            <ul>
+                {% for destination in trip_destinations.get(trip[0], []) %}
+                    <li>
+                        {{ destination[2] }} ({{ destination[3]|dkdate }} - {{ destination[4]|dkdate }})
+
+                        <form 
+                            method="POST" 
+                            action="/trips/{{ trip[0] }}/destinations/{{ destination[1] }}/delete" 
+                            style="display:inline;"
+                        >
+                            <button 
+                                type="submit"
+                                onclick="return confirm('Er du sikker på, at du vil slette denne destination?')"
+                            >
+                                Slet destination
+                            </button>
+                        </form>
+                    </li>
+                {% endfor %}
+
+                <li>
+                    <a href="{{ url_for('destination.show_destinations', trip_id=trip[0]) }}">
+                        Tilføj destination
+                    </a>
+                </li>
+            </ul>
+        </li>
+    {% endfor %}
+    </ul>
+
+</body>
+</html>

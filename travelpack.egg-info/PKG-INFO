@@ -1,0 +1,6 @@
+Metadata-Version: 2.4
+Name: travelpack
+Version: 1.0.0
+Summary: TravelPack - a travel packing list app
+Requires-Dist: flask==3.1.1
+Requires-Dist: psycopg2-binary==2.9.12

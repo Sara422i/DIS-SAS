@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Destinationer</title>
+</head>
+<body>
+    <h1>Destinationer for {{ trip[1] }}</h1>
+
+    <p>
+        Rejseperiode: {{ trip[2] }} - {{ trip[3] }}
+    </p>
+
+    <form method="POST">
+        <input type="text" name="name" placeholder="Destinationens navn" required>
+
+        <input type="text" name="destination_type" placeholder="Type fx strand/by/skiferie" required>
+
+        <input type="text" name="currency" placeholder="Valuta fx USD/EUR/DKK">
+
+        <input type="date" name="arrival" min="{{ trip[2] }}" max="{{ trip[3] }}" required >
+
+        <input type="date" name="departure" min="{{ trip[2] }}" max="{{ trip[3] }}" required>
+
+        <button type="submit">Tilføj destination</button>
+    </form>
+
+    <h2>Tilføjede destinationer</h2>
+
+    <ul>
+        {% for destination in destinations %}
+            <li>
+                {{ destination[0] }}
+                - {{ destination[1] }}
+                - {{ destination[2] }}
+                ({{ destination[3] }} - {{ destination[4] }})
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a href="/">Tilbage til mine rejser</a>
+</body>
+</html>

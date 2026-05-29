@@ -1,0 +1,7 @@
+README.md
+pyproject.toml
+travelpack.egg-info/PKG-INFO
+travelpack.egg-info/SOURCES.txt
+travelpack.egg-info/dependency_links.txt
+travelpack.egg-info/requires.txt
+travelpack.egg-info/top_level.txt
