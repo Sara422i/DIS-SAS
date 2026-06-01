@@ -42,9 +42,11 @@ def init_db():
     cur.execute('''CREATE TABLE IF NOT EXISTS weather (
         destination_id INTEGER NOT NULL REFERENCES destinations(id),
         date DATE NOT NULL,
-        temperature FLOAT,
+        temperature_min FLOAT,
+        temperature_max FLOAT,
         precipitation FLOAT,
         uv_index FLOAT,
+        weather_code INTEGER,
         PRIMARY KEY (destination_id, date))''')
 
     cur.execute('''CREATE TABLE IF NOT EXISTS packlists (

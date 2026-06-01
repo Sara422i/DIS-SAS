@@ -5,6 +5,7 @@ description = "TravelPack - a travel packing list app"
 dependencies = [
     "flask (==3.1.1)",
     "psycopg2-binary (==2.9.12)",
+    "requests ()",
 ]
 
 [tool.setuptools]
