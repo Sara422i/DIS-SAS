@@ -1,93 +1,76 @@
-# SAS - DISPROJ
+## How to Compile the Web Application from Source
 
+The application is built and run using Docker and Docker Compose.
 
+From the root directory of the project, run:
 
-## Getting started
-
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
-
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-* [Create](https://docs.gitlab.com/user/project/repository/web_editor/#create-a-file) or [upload](https://docs.gitlab.com/user/project/repository/web_editor/#upload-a-file) files
-* [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
-
-```
-cd existing_repo
-git remote add origin https://git.ku.dk/rwz996/sas-disproj.git
-git branch -M main
-git push -uf origin main
+```bash
+docker compose up --build
 ```
 
-## Integrate with your tools
+This command builds the Flask web application from source and starts both the application container and the PostgreSQL database container.
 
-* [Set up project integrations](https://git.ku.dk/rwz996/sas-disproj/-/settings/integrations)
+The database is initialized automatically when the application starts. The `init_db()` function in `database.py` creates all required tables if they do not already exist:
 
-## Collaborate with your team
+* `users`
+* `trips`
+* `destinations`
+* `visits`
+* `weather`
+* `packlists`
+* `packitems`
 
-* [Invite team members and collaborators](https://docs.gitlab.com/user/project/members/)
-* [Create a new merge request](https://docs.gitlab.com/user/project/merge_requests/creating_merge_requests/)
-* [Automatically close issues from merge requests](https://docs.gitlab.com/user/project/issues/managing_issues/#closing-issues-automatically)
-* [Enable merge request approvals](https://docs.gitlab.com/user/project/merge_requests/approvals/)
-* [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
+```
 
-## Test and Deploy
+If the database should be reset completely, stop the containers and remove volumes:
 
-Use the built-in continuous integration in GitLab.
+```bash
+docker compose down -v
+```
 
-* [Get started with GitLab CI/CD](https://docs.gitlab.com/ci/quick_start/)
-* [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/user/application_security/sast/)
-* [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/topics/autodevops/requirements/)
-* [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/user/clusters/agent/)
-* [Set up protected environments](https://docs.gitlab.com/ci/environments/protected_environments/)
+Then rebuild and restart the application:
 
-***
+```bash
+docker compose up --build
+```
 
-# Editing this README
+## How to Run and Interact with the Web Application
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+Start the application with:
 
-## Suggestions for a good README
+```bash
+docker compose up --build
+```
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+When the application is running, open the following URL in a browser:
 
-## Name
-Choose a self-explaining name for your project.
+```text
+http://localhost:5000
+```
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+From the web interface, the user can:
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+1. Create a new trip by entering a title, start date, and end date.
+2. Add destinations to a trip.
+3. Select a destination type, such as city, beach, ski, hiking, camping, or work.
+4. Add arrival and departure dates for each destination.
+5. View the packing list for a trip.
+6. Manually add items to the packing list.
+7. Mark items as packed or unpacked.
+8. Delete trips, destinations, or packing items.
+9. Generate packing suggestions based on destination type.
+10. Receive weather-based packing suggestions when weather data is available.
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+The application uses the Open-Meteo API to retrieve weather data for destinations. If the external API is unavailable, the application still works, but weather-based packing suggestions may not be generated.
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+## AI Declaration
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+AI tools were used during the development and writing process of this project.
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+AI assistance was used for:
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+* Explaining and debugging parts of the implementation
+* Improving wording and clarity in written project material
+* Generating suggestions for code organization and documentation
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+All code and project decisions were reviewed and adapted by the group members
