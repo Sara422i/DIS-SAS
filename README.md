@@ -1,3 +1,8 @@
+## Members of the project:
+Annis Isaac Nazaroi- WQD153
+Sarah Rosenqvist Henriksen - RWZ996
+Susanna Gerencer Heinesen - LNZ132
+
 ## How to Compile the Web Application from Source
 
 The application is built and run using Docker and Docker Compose.
